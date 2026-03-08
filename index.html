@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>IMERSAO</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/core-img/favicon.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Minimal additions only — no overrides to existing classes -->
+    <style>
+        .lang-toggle-wrap {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+        .lang-btn {
+            padding: 5px 12px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.3);
+            font-family: inherit;
+            transition: all 0.2s;
+            opacity: 0.6;
+        }
+        .lang-btn:first-child { border-right: none; }
+        .lang-btn.active { background: #fff; color: #000; opacity: 1; }
+        .lang-btn:hover:not(.active) { opacity: 1; }
+
+        /* Bio image placeholder */
+        .bio-img-placeholder {
+            width: 100%;
+            min-height: 420px;
+            background: rgba(255,255,255,0.05);
+            border: 1px dashed rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .bio-img-placeholder span {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* Bio stats */
+        .bio-stats-row {
+            display: flex;
+            margin-top: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .bio-stat-item {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .bio-stat-item:last-child { border-right: none; }
+        .bio-stat-num {
+            display: block;
+            font-size: 34px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .bio-stat-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+        }
+
+        /* Video embed */
+        .video-embed-wrap {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: #111;
+    cursor: pointer;
+}
+.video-embed-wrap iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+}
+.video-thumb {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-color: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+.video-thumb:hover { opacity: 0.85; }
+.video-thumb::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+}
+.video-play-circle {
+    position: relative;
+    z-index: 2;
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.92);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s;
+}
+.video-thumb:hover .video-play-circle { transform: scale(1.1); }
+.video-play-circle svg { width: 28px; height: 28px; margin-left: 4px; }
+.video-id-input-wrap {
+    position: absolute;
+    bottom: 12px; left: 12px; right: 12px;
+    z-index: 10;
+    display: flex;
+    gap: 8px;
+}
+.video-id-input {
+    flex: 1;
+    padding: 7px 12px;
+    background: rgba(0,0,0,0.7);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    font-size: 12px;
+    font-family: inherit;
+    outline: none;
+}
+.video-id-input::placeholder { color: rgba(255,255,255,0.4); }
+.video-id-btn {
+    padding: 7px 14px;
+    background: #fff;
+    color: #000;
+    border: none;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+}
+
+        /* Track list */
+        .track-list { list-style: none; padding: 0; margin: 0; }
+        .track-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            cursor: pointer;
+            transition: padding-left 0.2s;
+        }
+        .track-item:hover { padding-left: 6px; }
+        .track-num { font-size: 12px; color: rgba(255,255,255,0.3); width: 22px; text-align: center; flex-shrink: 0; }
+        .track-info { flex: 1; }
+        .track-name { font-size: 14px; color: #fff; margin-bottom: 2px; }
+        .track-artist { font-size: 12px; color: rgba(255,255,255,0.45); }
+        .track-dur { font-size: 12px; color: rgba(255,255,255,0.35); flex-shrink: 0; }
+        .track-play-btn {
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: transparent;
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .track-play-btn:hover { background: #fff; color: #000; }
+        .track-play-btn svg { width: 10px; height: 10px; }
+        .player-bar {
+            margin-top: 18px;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .player-meta { margin-bottom: 8px; }
+        .player-track-name { font-size: 13px; color: #fff; }
+        .player-track-artist { font-size: 11px; color: rgba(255,255,255,0.45); }
+        audio { width: 100%; }
+
+        /* Events */
+        .event-row {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            padding: 26px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: padding-left 0.3s;
+        }
+        .event-row:hover { padding-left: 8px; }
+        .event-date-box { text-align: center; min-width: 80px; flex-shrink: 0; }
+        .event-day { font-size: 44px; font-weight: 700; color: #fff; line-height: 1; }
+        .event-month-lbl { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top: 4px; }
+        .event-details { flex: 1; }
+        .event-details h5 { font-size: 18px; color: #fff; margin-bottom: 5px; font-weight: 600; }
+        .event-venue-lbl { font-size: 13px; color: rgba(255,255,255,0.5); }
+        .event-tags-row { display: flex; gap: 8px; margin-top: 8px; }
+        .event-tag {
+            font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+            padding: 3px 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.45);
+        }
+        .event-ticket-btn {
+            display: inline-block;
+            padding: 10px 22px;
+            border: 1px solid rgba(255,255,255,0.8);
+            color: #fff;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .event-ticket-btn:hover { background: #fff; color: #000; text-decoration: none; }
+        .event-ticket-btn.sold-out { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.3); pointer-events: none; }
+
+        /* Form success */
+        .form-success {
+            display: none;
+            padding: 14px 18px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            font-size: 13px;
+            margin-top: 16px;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 767px) {
+            .event-row { flex-wrap: wrap; gap: 14px; }
+            .bio-stats-row { flex-wrap: wrap; }
+            .lang-toggle-wrap { margin-left: 8px; }
+        }
+    </style>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1QS2NX63T1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1QS2NX63T1');
+</script>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="lds-ellipsis">
+            <div></div><div></div><div></div><div></div>
+        </div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+        <div class="oneMusic-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <nav class="classy-navbar justify-content-between" id="oneMusicNav">
+
+                        <!-- Nav brand -->
+                        <a href="#accueil" class="nav-brand"><img src="img/core-img/logo.png" alt=""></a>
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="#accueil" class="t" data-en="Home" data-fr="Accueil">Home</a></li>
+                                    <li><a href="#bio" class="t" data-en="Biography" data-fr="Biographie">Biography</a></li>
+                                    <li><a href="#media" class="t" data-en="Music &amp; Video" data-fr="Musique &amp; Vidéo">Music &amp; Video</a></li>
+                                    <li><a href="#evenements" class="t" data-en="Events" data-fr="Événements">Events</a></li>
+                                    <li><a href="#contact" class="t" data-en="Contact" data-fr="Contact">Contact</a></li>
+                                </ul>
+
+                                <div class="lang-toggle-wrap">
+                                    <button class="lang-btn" onclick="setLang('fr')" id="btn-fr">FR</button>
+                                    <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
+                                </div>
+                            </div>
+                            <!-- Nav End -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+    <!-- ##### Hero Area Start ##### -->
+    <section class="hero-area" id="accueil">
+        <div class="hero-slides owl-carousel">
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <div class="slide-img bg-img" style="background-image: url(img/bg-img/bg-1.jpg);"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="hero-slides-content text-center">
+                                <a data-animation="fadeInUp" data-delay="500ms" href="#bio" class="btn oneMusic-btn mt-50 t" data-en="Discover" data-fr="Découvrir">Discover <i class="fa fa-angle-double-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <div class="slide-img bg-img" style="background-image: url(img/bg-img/bg-2.jpg);"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="hero-slides-content text-center">
+                                                               <a data-animation="fadeInUp" data-delay="500ms" href="#bio" class="btn oneMusic-btn mt-50 t" data-en="Discover" data-fr="Découvrir">Discover <i class="fa fa-angle-double-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Hero Area End ##### -->
+
+    <!-- ##### Bio Area Start ##### -->
+    <section class="featured-artist-area section-padding-100 bg-img bg-overlay bg-fixed" style="background-image: url(img/bg-img/bg-4.jpg);" id="bio">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">
+                        <p class="t" data-en="About the Artist" data-fr="À propos de l'artiste">About the Artist</p>
+                        <h2 class="t" data-en="Biography" data-fr="Biographie">Biography</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-12 col-md-5 col-lg-4 wow fadeInUp" data-wow-delay="150ms">
+                    <div class="featured-artist-thumb">
+                        <div class="bio-img-placeholder">
+                            <img src="img/bg-img/artist.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-7 col-lg-8 wow fadeInUp" data-wow-delay="200ms">
+                    <div class="featured-artist-content">
+                        <p class="t"
+                           data-en="IMERSAO is a solo live music project, rooted in an organic trance style with influences from around the world. On stage, handpan, didgeridoo and percussion are played simultaneously, in a performance guided by rhythm and breath."
+                           data-fr="IMERSAO est un projet solo de musique live, ancré dans un style transe organique aux influences du monde. Sur scène, handpan, didgeridoo et percussions sont joués simultanément, dans une performance guidée par le rythme et le souffle."> IMERSAO is a solo live music project, rooted in an organic trance style with influences from around the world. On stage, handpan, didgeridoo and percussion are played simultaneously, in a performance guided by rhythm and breath.
+                        </p>
+                        <br>
+                        <p class="t"
+                           data-en="Between the jungle and the dancefloor, IMERSAO makes bodies move and minds travel, blending ancestral soundscapes with electronic pulses. A live experience to be felt and lived."
+                           data-fr="Entre la jungle et le dancefloor, IMERSAO fait danser le corps et voyager l’esprit, mêlant sonorités ancestrales et pulsations électroniques.
+Une expérience live à vivre et à ressentir.">
+                            Between the jungle and the dancefloor, IMERSAO makes bodies move and minds travel, blending ancestral soundscapes with electronic pulses. A live experience to be felt and lived.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Bio Area End ##### -->
+
+    <!-- ##### Music & Video Area Start ##### -->
+<section class="miscellaneous-area section-padding-100-0" id="media">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
+                    <p class="t" data-en="Watch & Listen" data-fr="Regarder & Écouter">Watch & Listen</p>
+                    <h2 class="t" data-en="Music & Video" data-fr="Musique & Vidéo">Music & Video</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-100 align-items-start">
+
+            <!-- YouTube Video -->
+            <div class="col-12 col-lg-7 wow fadeInUp" data-wow-delay="100ms">
+
+                <div class="video-embed-wrap">
+
+                    <iframe 
+                        src="https://www.youtube-nocookie.com/embed/4dPpUeD_2Dw"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        loading="lazy">
+                    </iframe>
+
+                </div>
+
+                <p class="video-caption t"
+                   data-en="IMERSAO – Live Organic Trance | Anatha Festival 2025"
+                   data-fr="IMERSAO – Live Organic Trance | Anatha Festival 2025">
+                   IMERSAO – Live Organic Trance | Anatha Festival 2025
+                </p>
+
+            </div>
+
+            <!-- Spotify Music Player -->
+            <div class="col-12 col-lg-5 wow fadeInUp" data-wow-delay="200ms">
+
+                <div class="music-player-box">
+
+                    <h5 class="t"
+                        data-en="Listen on Spotify"
+                        data-fr="Écouter sur Spotify">
+                        Listen on Spotify
+                    </h5>
+
+                    <iframe
+                        style="border-radius:12px"
+                        src="https://open.spotify.com/embed/artist/4L17CZS2GsXfsqWgqgnSkA?utm_source=generator&theme=0"
+                        width="100%"
+                        height="352"
+                        frameborder="0"
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                        loading="lazy">
+                    </iframe>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<!-- ##### Music & Video Area End ##### -->
+
+    
+    <!-- ##### Events Area Start ##### -->
+    <section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img" style="background-image: url(img/bg-img/bg-4.jpg);" id="evenements">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">
+                        <p class="t" data-en="See what's new" data-fr="Voir les nouveautés">See what's new</p>
+                        <h2 class="t" data-en="Upcoming Events" data-fr="Prochains Événements">Upcoming Events</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 wow fadeInUp" data-wow-delay="150ms">
+
+
+
+                 	<div class="event-row">
+                        <div class="event-date-box">
+                            <div class="event-day">9</div>
+                            <div class="event-month-lbl t" data-en="May 2026" data-fr="May 2026">May 2026</div>
+                        </div>
+                        <div class="event-details">
+                            <h5>SZN Klozing</h5>
+                            <div class="event-venue-lbl">Space Garage — Montréal, QC</div>
+                            <div class="event-tags-row">
+                                <span class="event-tag t" data-en="Concert" data-fr="Concert">Concert</span>
+                                <span class="event-tag t" data-en="All Ages" data-fr="Tout public">All Ages</span>
+                            </div>
+                        </div>
+                        <a href="#" target="_blank" class="event-ticket-btn t" data-en="Link" data-fr="Liens">Link</a>
+                    </div>
+
+
+			<div class="event-row">
+                        <div class="event-date-box">
+                            <div class="event-day">27</div>
+                            <div class="event-month-lbl t" data-en="Jun 2026" data-fr="Jun 2026">June 2026</div>
+                        </div>
+                        <div class="event-details">
+                            <h5>Triskel</h5>
+                            <div class="event-venue-lbl">Notre-Dame-de-la-Paix QC</div>
+                            <div class="event-tags-row">
+                                <span class="event-tag t" data-en="Festival" data-fr="Festival">Festival</span>
+                                <span class="event-tag t" data-en="All Ages" data-fr="Tout public">All Ages</span>
+				<span class="event-tag t" data-en="Outdoor" data-fr="Extérieur">Outdoor</span>
+                            </div>
+                        </div>
+                        <a href="#" class="event-ticket-btn t" data-en="Link" data-fr="Liens">Link</a>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Events Area End ##### -->
+
+    <!-- ##### Contact Area Start ##### -->
+<!-- ##### Contact Area Start ##### -->
+<section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img" 
+         style="background-image: url(img/bg-img/bg-2.jpg);" id="contact">
+    <div class="container">
+        <!-- Section Heading -->
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">
+                    <p class="t" data-en="Get in touch" data-fr="Nous écrire">Get in touch</p>
+                    <h2 class="t" data-en="Contact" data-fr="Contact">Contact</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Info Block -->
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay="100ms">
+                <div class="contact-info-block text-center" style="text-align:center;">
+                    <i class="fa fa-envelope-o" style="font-size: 30px; display:block; margin-bottom:10px;"></i>
+                    <h5 class="t" data-en="Email" data-fr="Courriel">Email</h5>
+                    <a href="mailto:booking@imersaosounds.com" 
+                       style="display:inline-block; margin-top:5px; font-size:16px; color:#fff; text-decoration:none;">
+                        booking@imersaosounds.com
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Media Links -->
+        <div class="row mt-50">
+            <div class="col-12 text-center wow fadeInUp" data-wow-delay="400ms">
+                <p class="t" style="color:rgba(255,255,255,0.6); margin-bottom:30px; font-size:15px;"
+                   data-en="Follow us on social media"
+                   data-fr="Suivez-nous sur les réseaux sociaux">
+                   Follow us on social media
+                </p>
+                <div class="contact-social-links">
+                    <a href="https://www.instagram.com/imersao_sounds" target="_blank"><i class="fa fa-instagram"></i> Instagram</a>
+                    <a href="https://www.facebook.com/imersaosounds" target="_blank"><i class="fa fa-facebook"></i> Facebook</a>
+                    <a href="https://open.spotify.com/intl-fr/artist/4L17CZS2GsXfsqWgqgnSkA" target="_blank"><i class="fa fa-spotify"></i> Spotify</a>
+                    <a href="https://soundcloud.com/imersao_sounds" target="_blank"><i class="fa fa-soundcloud"></i> Soundcloud</a>
+                    <a href="https://www.youtube.com/@imersao_sounds" target="_blank"><i class="fa fa-youtube"></i> YouTube</a>
+                    <a href="https://imersao.bandcamp.com" target="_blank"><i class="fa fa-bandcamp"></i> Bandcamp</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Contact Area End ##### --><!-- ##### Contact Area End ##### -->
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area">
+        <div class="container">
+            <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-12 col-md-6">
+                    <a href="#accueil"><img src="img/core-img/logo.png" alt=""></a>
+                    <p class="copywrite-text"><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></a></p>
+                </div>
+                <div class="col-12 col-md-6">
+                                   </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### All Javascript Script ##### -->
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="js/bootstrap/popper.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/plugins/plugins.js"></script>
+    <script src="js/active.js"></script>
+
+    <script>
+        // ===== LANGUAGE SYSTEM =====
+        var currentLang = 'en';
+
+        function setLang(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+
+            document.querySelectorAll('.t').forEach(function(el) {
+                var text = el.getAttribute('data-' + lang);
+                if (!text) return;
+                // If element has no child elements, safe to set textContent
+                // If it has child elements (e.g. <i> icons), only update text nodes
+                if (el.children.length === 0) {
+                    el.textContent = text;
+                } else {
+                    // Update only the first text node, preserve child elements
+                    for (var i = 0; i < el.childNodes.length; i++) {
+                        if (el.childNodes[i].nodeType === 3) { // text node
+                            el.childNodes[i].nodeValue = text + ' ';
+                            break;
+                        }
+                    }
+                }
+            });
+
+            document.querySelectorAll('[data-placeholder-en]').forEach(function(el) {
+                var ph = el.getAttribute('data-placeholder-' + lang);
+                if (ph) el.placeholder = ph;
+            });
+
+            document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+        }
+
+        setLang('en');
+
+        // ===== MUSIC PLAYER =====
+        function playTrack(itemEl, src, name, artist) {
+            var player = document.getElementById('mainPlayer');
+            var bar = document.getElementById('playerBar');
+
+            document.querySelectorAll('.track-item').forEach(function(t) {
+                t.style.background = 'transparent';
+                t.querySelector('.track-num').style.color = 'rgba(255,255,255,0.3)';
+            });
+
+            itemEl.style.background = 'rgba(255,255,255,0.05)';
+            itemEl.querySelector('.track-num').style.color = '#fff';
+
+            document.getElementById('playerName').textContent = name;
+       
