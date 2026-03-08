@@ -580,7 +580,7 @@ Une expérience live à vivre et à ressentir.">
                 <div class="col-12 col-md-6">
                     <a href="#accueil"><img src="img/core-img/logo.png" alt=""></a>
                     <p class="copywrite-text"><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+Copyright &copy;</script><script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></a></p>
                 </div>
                 <div class="col-12 col-md-6">
@@ -632,20 +632,6 @@ Copyright &copy;<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/clou
             document.getElementById('btn-en').classList.toggle('active', lang === 'en');
         }
 
-        setLang('en');
+        </script>
 
-        // ===== MUSIC PLAYER =====
-        function playTrack(itemEl, src, name, artist) {
-            var player = document.getElementById('mainPlayer');
-            var bar = document.getElementById('playerBar');
-
-            document.querySelectorAll('.track-item').forEach(function(t) {
-                t.style.background = 'transparent';
-                t.querySelector('.track-num').style.color = 'rgba(255,255,255,0.3)';
-            });
-
-            itemEl.style.background = 'rgba(255,255,255,0.05)';
-            itemEl.querySelector('.track-num').style.color = '#fff';
-
-            document.getElementById('playerName').textContent = name;
        
