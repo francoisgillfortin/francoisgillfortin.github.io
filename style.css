@@ -1745,6 +1745,14 @@ img {
     background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white overlay */
 }
 
+.bio-img-placeholder {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;       /* or whatever fixed width you need */
+  height: 300px;     /* must have a height, or it won't show */
+}
+
 /* ====== The End ====== */
 
 /*# sourceMappingURL=style.css.map */
