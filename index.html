@@ -13,8 +13,16 @@
     <!-- Favicon -->
     <link rel="icon" href="img/core-img/favicon.png">
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Archivo+Narrow:400,400i,500,500i,600,600i,700,700i&display=swap">
+
+    <!-- Preload hero image -->
+    <link rel="preload" as="image" href="img/bg-img/bg-1.jpg">
+
+    <!-- Stylesheet (bundled + minified) -->
+    <link rel="stylesheet" href="style.min.css">
 
     <!-- Minimal additions only — no overrides to existing classes -->
     <style>
@@ -47,6 +55,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background-size: cover;
+            background-position: center;
         }
         .bio-img-placeholder span {
             font-size: 12px;
@@ -81,6 +91,52 @@
             text-transform: uppercase;
             color: rgba(255,255,255,0.45);
         }
+
+        /* Photo credit */
+        .photo-credit {
+            margin-top: 10px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+        }
+        .photo-credit-footer {
+            font-size: 12px;
+        }
+
+        /* Media section on dark background */
+        #media .music-player-box h5 { color: #fff; }
+        .video-caption {
+            margin: 0 0 12px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.75);
+        }
+
+        /* Video tabs */
+        .video-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 15px;
+        }
+        .video-tab-btn {
+            flex: 1;
+            text-align: center;
+            padding: 8px 18px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.3);
+            font-family: inherit;
+            transition: all 0.2s;
+            opacity: 0.6;
+        }
+        .video-tab-btn + .video-tab-btn { border-left: none; }
+        .video-tab-btn.active { background: #fff; color: #000; opacity: 1; }
+        .video-tab-btn:hover:not(.active) { opacity: 1; }
 
         /* Video embed */
         .video-embed-wrap {
@@ -257,8 +313,21 @@
             .lang-toggle-wrap { margin-left: 8px; }
         }
 
+        /* Each section fills the viewport height */
+        .single-hero-slide {
+            height: 100vh !important;
+            height: 100svh !important;
+        }
+        #bio, #media, #evenements, #contact {
+            min-height: 100vh;
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
         /* Match Spotify block height with YouTube block */
-        #media .row.mb-100.align-items-start {
+        #media .row.align-items-start {
             align-items: stretch !important;
         }
         #media .col-lg-5 {
@@ -283,16 +352,13 @@
         }
 
 
-        /* Soft edge around the Biography artist image */
+        /* Soft edge around the Biography artist image: edges fade to transparent */
         .bio-img-placeholder {
             position: relative;
-        }
-        .bio-img-placeholder::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            box-shadow: inset 0 0 28px 12px rgba(0,0,0,0.35);
+            -webkit-mask-image: linear-gradient(to right, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%), linear-gradient(to bottom, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%);
+            -webkit-mask-composite: source-in;
+            mask-image: linear-gradient(to right, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%), linear-gradient(to bottom, transparent 0, #000 30px, #000 calc(100% - 30px), transparent 100%);
+            mask-composite: intersect;
         }
 
     </style>
@@ -408,6 +474,7 @@
                     <div class="featured-artist-thumb">
   			<div class="bio-img-placeholder" style="background-image: url('./img/bg-img/artist.JPG');">
   			</div>
+  			<p class="photo-credit t" data-en="Photo: Danylo Bobyk" data-fr="Photo : Danylo Bobyk">Photo: Danylo Bobyk</p>
 		</div>
                 </div>
                 <div class="col-12 col-md-7 col-lg-8 wow fadeInUp" data-wow-delay="200ms">
@@ -431,34 +498,41 @@ Une expérience live à vivre et à ressentir.">
     <!-- ##### Bio Area End ##### -->
 
     <!-- ##### Music & Video Area Start ##### -->
-<section class="miscellaneous-area section-padding-100-0" id="media">
+<section class="miscellaneous-area section-padding-100 bg-img bg-overlay bg-fixed" style="background-image: url(img/bg-img/bg-4.jpg);" id="media">
     <div class="container">
 
         <div class="row">
             <div class="col-12">
-                <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
+                <div class="section-heading white text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
                     <p class="t" data-en="Watch & Listen" data-fr="Regarder & Écouter">Watch & Listen</p>
                     <h2 class="t" data-en="Music & Video" data-fr="Musique & Vidéo">Music & Video</h2>
                 </div>
             </div>
         </div>
 
-        <div class="row mb-100 align-items-start">
+        <div class="row align-items-start">
 
             <!-- YouTube Video -->
             <div class="col-12 col-lg-7 wow fadeInUp" data-wow-delay="100ms">
-		<p class="video-caption t"
-                   data-en="IMERSAO – Live Organic Trance | Anatha Festival 2025"
-                   data-fr="IMERSAO – Live Organic Trance | Anatha Festival 2025">
-                   IMERSAO – Live Organic Trance | Anatha Festival 2025
-                </p>
+		<div class="video-tabs">
+                    <button class="video-tab-btn active" id="video-tab-0" onclick="showVideo(0)">Anatha Festival 2025</button>
+                    <button class="video-tab-btn" id="video-tab-1" onclick="showVideo(1)">Triskel Festival 2026</button>
+                </div>
+                <p class="video-caption" id="video-caption">IMERSAO – Live Organic Trance | Anatha Festival 2025</p>
                 <div class="video-embed-wrap">
 
-                    <iframe 
-                        src="https://www.youtube-nocookie.com/embed/4dPpUeD_2Dw"
+                    <iframe id="video-frame-0"
+                        src="https://www.youtube.com/embed/4dPpUeD_2Dw"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen
                         loading="lazy">
+                    </iframe>
+                    <iframe id="video-frame-1"
+                        src="https://www.youtube.com/embed/3jj1FUk7ino"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        loading="lazy"
+                        style="display: none;">
                     </iframe>
 
                 </div>
@@ -515,38 +589,10 @@ Une expérience live à vivre et à ressentir.">
 
 
 
-                 	<div class="event-row">
-                        <div class="event-date-box">
-                            <div class="event-day">9</div>
-                            <div class="event-month-lbl t" data-en="May 2026" data-fr="May 2026">May 2026</div>
+                 	<div class="event-row" style="justify-content: center; border-bottom: none;">
+                        <div class="event-details" style="text-align: center;">
+                            <h5 class="t" data-en="More dates will be announced soon" data-fr="D'autres dates seront annonc&eacute;es prochainement">More dates will be announced soon</h5>
                         </div>
-                        <div class="event-details">
-                            <h5>SZN Klozing</h5>
-                            <div class="event-venue-lbl">Space Garage — Montréal, QC</div>
-                            <div class="event-tags-row">
-                                <span class="event-tag t" data-en="Concert" data-fr="Concert">Concert</span>
-                                <span class="event-tag t" data-en="All Ages" data-fr="Tout public">All Ages</span>
-                            </div>
-                        </div>
-                        <a href="#" target="_blank" class="event-ticket-btn t" data-en="Link" data-fr="Liens">Link</a>
-                    </div>
-
-
-			<div class="event-row">
-                        <div class="event-date-box">
-                            <div class="event-day">27</div>
-                            <div class="event-month-lbl t" data-en="Jun 2026" data-fr="Jun 2026">June 2026</div>
-                        </div>
-                        <div class="event-details">
-                            <h5>Triskel</h5>
-                            <div class="event-venue-lbl">Notre-Dame-de-la-Paix QC</div>
-                            <div class="event-tags-row">
-                                <span class="event-tag t" data-en="Festival" data-fr="Festival">Festival</span>
-                                <span class="event-tag t" data-en="All Ages" data-fr="Tout public">All Ages</span>
-				<span class="event-tag t" data-en="Outdoor" data-fr="Extérieur">Outdoor</span>
-                            </div>
-                        </div>
-                        <a href="#" class="event-ticket-btn t" data-en="Link" data-fr="Liens">Link</a>
                     </div>
 
 
@@ -591,9 +637,9 @@ Une expérience live à vivre et à ressentir.">
         <div class="row mt-50">
             <div class="col-12 text-center wow fadeInUp" data-wow-delay="400ms">
                 <p class="t" style="color:rgba(255,255,255,0.6); margin-bottom:30px; font-size:15px;"
-                   data-en="Follow us on social media"
-                   data-fr="Suivez-nous sur les réseaux sociaux">
-                   Follow us on social media
+                   data-en="Follow me on social media"
+                   data-fr="Suivez-moi sur les réseaux sociaux">
+                   Follow me on social media
                 </p>
                 <div class="contact-social-links">
                     <a href="https://www.instagram.com/imersao_sounds" target="_blank"><i class="fa fa-instagram"></i> Instagram</a>
@@ -619,8 +665,9 @@ Une expérience live à vivre et à ressentir.">
 Copyright &copy;</script><script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></a></p>
                 </div>
-                <div class="col-12 col-md-6">
-                                   </div>
+                <div class="col-12 col-md-6 text-md-right">
+                    <p class="copywrite-text photo-credit-footer t" data-en="Photo credit: Danylo Bobyk" data-fr="Cr&eacute;dit photo : Danylo Bobyk">Photo credit: Danylo Bobyk</p>
+                </div>
             </div>
         </div>
     </footer>
@@ -630,10 +677,24 @@ Copyright &copy;</script><script>document.write(new Date().getFullYear());</scri
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
     <script src="js/bootstrap/popper.min.js"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
-    <script src="js/plugins/plugins.js"></script>
+    <script src="js/plugins/plugins.min.js"></script>
     <script src="js/active.js"></script>
 
     <script>
+        // ===== VIDEO TABS =====
+        var videoList = [
+            { id: '4dPpUeD_2Dw', caption: 'IMERSAO – Live Organic Trance | Anatha Festival 2025' },
+            { id: '3jj1FUk7ino', caption: 'IMERSAO – Live Organic Trance | Triskel Festival 2026' }
+        ];
+
+        function showVideo(i) {
+            document.getElementById('video-caption').textContent = videoList[i].caption;
+            document.getElementById('video-frame-0').style.display = (i === 0) ? 'block' : 'none';
+            document.getElementById('video-frame-1').style.display = (i === 1) ? 'block' : 'none';
+            document.getElementById('video-tab-0').classList.toggle('active', i === 0);
+            document.getElementById('video-tab-1').classList.toggle('active', i === 1);
+        }
+
         // ===== LANGUAGE SYSTEM =====
         var currentLang = 'en';
 
@@ -669,5 +730,8 @@ Copyright &copy;</script><script>document.write(new Date().getFullYear());</scri
         }
 
         </script>
+
+</body>
+</html>
 
        
