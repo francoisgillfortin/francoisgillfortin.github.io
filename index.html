@@ -361,6 +361,97 @@
             mask-composite: intersect;
         }
 
+        /* ===== Header social icons (top) ===== */
+        .header-social {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-left: 24px;
+        }
+        .header-social a {
+            color: #fff;
+            font-size: 17px;
+            line-height: 1;
+            opacity: 0.75;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .header-social a:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+        .header-social--mobile { display: none; }
+
+        /* ===== Contact: Technical Rider as a clickable box, same height as Email ===== */
+        a.contact-info-link { color: #fff; text-decoration: none; display: block; }
+        a.contact-info-link:hover { text-decoration: none; }
+        a.contact-info-link h5 { opacity: 0.85; margin-bottom: 0; transition: opacity 0.2s; }
+        a.contact-info-link:hover h5 { opacity: 1; }
+        @media (min-width: 768px) {
+            #contact .row.justify-content-center { align-items: stretch; }
+            #contact .contact-info-block {
+                height: 100%;
+                margin-bottom: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        /* ===== Past events ===== */
+        .past-events-heading {
+            margin-top: 70px;
+            margin-bottom: 30px;
+        }
+        .past-events-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 55px;
+            row-gap: 0;
+        }
+        .past-event {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: padding-left 0.25s;
+        }
+        .past-event:hover { padding-left: 6px; }
+        .past-event-info { flex: 1; }
+        .past-event-name { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 3px; }
+        .past-event-place { font-size: 13px; color: rgba(255,255,255,0.5); }
+        .past-event-year {
+            font-size: 13px;
+            color: rgba(255,255,255,0.45);
+            letter-spacing: 1px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* ===== Mobile header: sections collapse into the hamburger, social icons stay to its right ===== */
+        @media (max-width: 991px) {
+            .header-social--desktop { display: none; }
+            .header-area .oneMusic-main-menu .classy-navbar.justify-content-between { justify-content: flex-start !important; }
+            .header-area .oneMusic-main-menu .classy-navbar .nav-brand { margin-right: auto; }
+            .header-social--mobile {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                margin-left: 16px;
+            }
+            .header-social--mobile a { font-size: 18px; opacity: 0.85; }
+        }
+        @media (max-width: 400px) {
+            .header-social--mobile { gap: 11px; margin-left: 10px; }
+            .header-social--mobile a { font-size: 16px; }
+        }
+        @media (max-width: 767px) {
+            .past-events-grid { grid-template-columns: 1fr; column-gap: 0; }
+            .past-events-heading { margin-top: 50px; }
+        }
+
     </style>
 </head>
 
@@ -397,6 +488,16 @@
                             <span class="navbarToggler"><span></span><span></span><span></span></span>
                         </div>
 
+                        <!-- Mobile-only social icons (kept in the header, to the right of the hamburger) -->
+                        <div class="header-social header-social--mobile">
+                            <a href="https://www.instagram.com/imersao_sounds" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
+                            <a href="https://www.facebook.com/imersaosounds" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+                            <a href="https://open.spotify.com/intl-fr/artist/4L17CZS2GsXfsqWgqgnSkA" target="_blank" rel="noopener" aria-label="Spotify"><i class="fa fa-spotify"></i></a>
+                            <a href="https://soundcloud.com/imersao_sounds" target="_blank" rel="noopener" aria-label="Soundcloud"><i class="fa fa-soundcloud"></i></a>
+                            <a href="https://www.youtube.com/@imersao_sounds" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa fa-youtube"></i></a>
+                            <a href="https://imersao.bandcamp.com" target="_blank" rel="noopener" aria-label="Bandcamp"><i class="fa fa-bandcamp"></i></a>
+                        </div>
+
                         <!-- Menu -->
                         <div class="classy-menu">
                             <div class="classycloseIcon">
@@ -412,6 +513,15 @@
                                     <li><a href="#evenements" class="t" data-en="Events" data-fr="Événements">Events</a></li>
                                     <li><a href="#contact" class="t" data-en="Contact" data-fr="Contact">Contact</a></li>
                                 </ul>
+
+                                <div class="header-social header-social--desktop">
+                                    <a href="https://www.instagram.com/imersao_sounds" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa fa-instagram"></i></a>
+                                    <a href="https://www.facebook.com/imersaosounds" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+                                    <a href="https://open.spotify.com/intl-fr/artist/4L17CZS2GsXfsqWgqgnSkA" target="_blank" rel="noopener" aria-label="Spotify"><i class="fa fa-spotify"></i></a>
+                                    <a href="https://soundcloud.com/imersao_sounds" target="_blank" rel="noopener" aria-label="Soundcloud"><i class="fa fa-soundcloud"></i></a>
+                                    <a href="https://www.youtube.com/@imersao_sounds" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa fa-youtube"></i></a>
+                                    <a href="https://imersao.bandcamp.com" target="_blank" rel="noopener" aria-label="Bandcamp"><i class="fa fa-bandcamp"></i></a>
+                                </div>
 
                                 <div class="lang-toggle-wrap">
                                     <button class="lang-btn" onclick="setLang('fr')" id="btn-fr">FR</button>
@@ -435,7 +545,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="hero-slides-content text-center">
-                                <a data-animation="fadeInUp" data-delay="500ms" href="#bio" class="btn oneMusic-btn mt-50 t" data-en="Discover" data-fr="Découvrir">Discover <i class="fa fa-angle-double-right"></i></a>
+                                <!-- hero button removed -->
                             </div>
                         </div>
                     </div>
@@ -448,7 +558,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="hero-slides-content text-center">
-                                                               <a data-animation="fadeInUp" data-delay="500ms" href="#bio" class="btn oneMusic-btn mt-50 t" data-en="Discover" data-fr="Découvrir">Discover <i class="fa fa-angle-double-right"></i></a>
+                                                               <!-- hero button removed -->
                             </div>
                         </div>
                     </div>
@@ -595,6 +705,90 @@ Une expérience live à vivre et à ressentir.">
                         </div>
                     </div>
 
+                    <!-- ===== Past Events ===== -->
+                    <div class="section-heading white past-events-heading">
+                        <h2 class="t" data-en="Past Events" data-fr="Événements passés">Past Events</h2>
+                    </div>
+                    <div class="past-events-grid">
+                        <div class="past-event">
+                            <div class="past-event-info">
+                                <div class="past-event-name">Solstice Festival</div>
+                                <div class="past-event-place">Québec, Canada</div>
+                            </div>
+                            <div class="past-event-year">2026</div>
+                        </div>
+                        <div class="past-event">
+                            <div class="past-event-info">
+                                <div class="past-event-name">Triskel Festival</div>
+                                <div class="past-event-place">Notre-Dame-de-la-Paix, QC, Canada</div>
+                            </div>
+                            <div class="past-event-year">2026</div>
+                        </div>
+                        <div class="past-event">
+                            <div class="past-event-info">
+                                <div class="past-event-name">Anatha Festival</div>
+                                <div class="past-event-place">Sainte-Catherine, QC, Canada</div>
+                            </div>
+                            <div class="past-event-year">2025</div>
+                        </div>
+                        <div class="past-event">
+                            <div class="past-event-info">
+                                <div class="past-event-name">Open Mind Festival</div>
+                                <div class="past-event-place">Saint-Fortunat, QC, Canada</div>
+                            </div>
+                            <div class="past-event-year">2025</div>
+                        </div>
+                        <div class="past-event">
+                            <div class="past-event-info">
+                                <div class="past-event-name">ONE Festival</div>
+                                <div class="past-event-place">Stoneham, QC, Canada</div>
+                            </div>
+                            <div class="past-event-year">2025</div>
+                        </div>
+                        <div class="past-event">
+                            <div class="past-event-info">
+                                <div class="past-event-name">Utopia NYE</div>
+                                <div class="past-event-place">Montréal, QC, Canada</div>
+                            </div>
+                            <div class="past-event-year">2024–2025</div>
+                        </div>
+                        <div class="past-event">
+                            <div class="past-event-info">
+                                <div class="past-event-name">Triskel Festival</div>
+                                <div class="past-event-place">Barnston-Ouest, QC, Canada</div>
+                            </div>
+                            <div class="past-event-year">2023</div>
+                        </div>
+                        <div class="past-event">
+                            <div class="past-event-info">
+                                <div class="past-event-name">Dragonfly Festival</div>
+                                <div class="past-event-place">Tingwick, QC, Canada</div>
+                            </div>
+                            <div class="past-event-year">2023</div>
+                        </div>
+                        <div class="past-event">
+                            <div class="past-event-info">
+                                <div class="past-event-name">Shazamfest</div>
+                                <div class="past-event-place">Barnston-Ouest, QC, Canada</div>
+                            </div>
+                            <div class="past-event-year">2019, 2023</div>
+                        </div>
+                        <div class="past-event">
+                            <div class="past-event-info">
+                                <div class="past-event-name">Danse de la Tortue</div>
+                                <div class="past-event-place">Marston, QC, Canada</div>
+                            </div>
+                            <div class="past-event-year">2022</div>
+                        </div>
+                        <div class="past-event">
+                            <div class="past-event-info">
+                                <div class="past-event-name">Eclipse Festival</div>
+                                <div class="past-event-place">Sainte-Thérèse-de-la-Gatineau, QC, Canada</div>
+                            </div>
+                            <div class="past-event-year">2022</div>
+                        </div>
+                    </div>
+
 
 
 
@@ -625,32 +819,22 @@ Une expérience live à vivre et à ressentir.">
                 <div class="contact-info-block text-center" style="text-align:center;">
                     <i class="fa fa-envelope-o" style="font-size: 30px; display:block; margin-bottom:10px;"></i>
                     <h5 class="t" data-en="Email" data-fr="Courriel">Email</h5>
-                    <a href="mailto:booking@imersaosounds.com" 
+                    <a href="mailto:booking@imersaosounds.com"
                        style="display:inline-block; margin-top:5px; font-size:16px; color:#fff; text-decoration:none;">
                         booking@imersaosounds.com
                     </a>
                 </div>
             </div>
-        </div>
-
-        <!-- Social Media Links -->
-        <div class="row mt-50">
-            <div class="col-12 text-center wow fadeInUp" data-wow-delay="400ms">
-                <p class="t" style="color:rgba(255,255,255,0.6); margin-bottom:30px; font-size:15px;"
-                   data-en="Follow me on social media"
-                   data-fr="Suivez-moi sur les réseaux sociaux">
-                   Follow me on social media
-                </p>
-                <div class="contact-social-links">
-                    <a href="https://www.instagram.com/imersao_sounds" target="_blank"><i class="fa fa-instagram"></i> Instagram</a>
-                    <a href="https://www.facebook.com/imersaosounds" target="_blank"><i class="fa fa-facebook"></i> Facebook</a>
-                    <a href="https://open.spotify.com/intl-fr/artist/4L17CZS2GsXfsqWgqgnSkA" target="_blank"><i class="fa fa-spotify"></i> Spotify</a>
-                    <a href="https://soundcloud.com/imersao_sounds" target="_blank"><i class="fa fa-soundcloud"></i> Soundcloud</a>
-                    <a href="https://www.youtube.com/@imersao_sounds" target="_blank"><i class="fa fa-youtube"></i> YouTube</a>
-                    <a href="https://imersao.bandcamp.com" target="_blank"><i class="fa fa-bandcamp"></i> Bandcamp</a>
-                </div>
+            <div class="col-12 col-md-4 wow fadeInUp" data-wow-delay="200ms">
+                <a href="IMERSAO%20Technical%20Rider%202026.pdf" data-href-en="IMERSAO%20Technical%20Rider%202026.pdf" data-href-fr="IMERSAO%20Devis%20Technique%202026.pdf" target="_blank" rel="noopener" class="contact-info-block contact-info-link text-center" style="text-align:center;">
+                    <i class="fa fa-file-text-o" style="font-size: 30px; display:block; margin-bottom:10px;"></i>
+                    <h5 class="t" data-en="Technical Rider" data-fr="Fiche technique">Technical Rider</h5>
+                </a>
             </div>
         </div>
+
+        <!-- Social media links moved to the top header -->
+
     </div>
 </section>
 <!-- ##### Contact Area End ##### --><!-- ##### Contact Area End ##### -->
@@ -723,6 +907,12 @@ Copyright &copy;</script><script>document.write(new Date().getFullYear());</scri
             document.querySelectorAll('[data-placeholder-en]').forEach(function(el) {
                 var ph = el.getAttribute('data-placeholder-' + lang);
                 if (ph) el.placeholder = ph;
+            });
+
+            // Language-aware links (e.g. Technical Rider / Fiche technique PDF)
+            document.querySelectorAll('[data-href-en]').forEach(function(el) {
+                var h = el.getAttribute('data-href-' + lang);
+                if (h) el.setAttribute('href', h);
             });
 
             document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
