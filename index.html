@@ -308,8 +308,89 @@
         }
 
         @media (max-width: 767px) {
-            .event-row { flex-wrap: wrap; gap: 14px; }
-            .event-actions { width: 100%; justify-content: flex-start; }
+
+            /* Upcoming events — mobile layout */
+            .event-row {
+                display: grid;
+                grid-template-columns: 64px minmax(0, 1fr);
+                column-gap: 16px;
+                row-gap: 14px;
+                align-items: start;
+                padding: 24px 0;
+            }
+
+            .event-date-box {
+                grid-column: 1;
+                width: 64px;
+                min-width: 64px;
+                text-align: center;
+            }
+
+            .event-day {
+                font-size: 38px;
+            }
+
+            .event-month-lbl {
+                font-size: 9px;
+                letter-spacing: 1.5px;
+            }
+
+            .event-details {
+                grid-column: 2;
+                min-width: 0;
+            }
+
+            .event-details h5 {
+                font-size: 17px;
+                line-height: 1.25;
+                margin-bottom: 5px;
+            }
+
+            .event-venue-lbl {
+                font-size: 12px;
+                line-height: 1.4;
+            }
+
+            .event-tags-row {
+                flex-wrap: wrap;
+                gap: 6px;
+                margin-top: 8px;
+            }
+
+            .event-tag {
+                font-size: 9px;
+                letter-spacing: 1.5px;
+            }
+
+            /* Single ticket button */
+            .event-row > .event-ticket-btn {
+                grid-column: 1 / -1;
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+                margin-top: 2px;
+            }
+
+            /* Multiple event buttons */
+            .event-row > .event-actions {
+                grid-column: 1 / -1;
+                width: 100% !important;
+                display: flex !important;
+                gap: 8px !important;
+                justify-content: stretch !important;
+                align-items: stretch !important;
+            }
+
+            .event-actions .event-ticket-btn {
+                flex: 1;
+                min-width: 0;
+                text-align: center;
+                padding: 10px 8px;
+                font-size: 10px;
+                letter-spacing: 1.2px;
+                white-space: normal;
+            }
+
             .bio-stats-row { flex-wrap: wrap; }
             .lang-toggle-wrap { margin-left: 8px; }
         }
