@@ -307,7 +307,28 @@
             letter-spacing: 1px;
         }
 
+        /* Reduce space between Upcoming Events title and first event on desktop */
+        #evenements .section-heading {
+            margin-bottom: 25px !important;
+        }
+
         @media (max-width: 767px) {
+
+            /* Reduce space between Upcoming Events title and first event */
+            #evenements .section-heading {
+                margin-bottom: 0 !important;
+            }
+            #evenements > .container > .row:first-child {
+                margin-bottom: 0 !important;
+            }
+            /* Move the entire events content up without creating overlap */
+            #evenements > .container {
+                transform: translateY(-30px);
+            }
+
+            #evenements > .container > .row:nth-child(2) {
+                margin-top: 0 !important;
+            }
 
             /* Upcoming events — mobile layout */
             .event-row {
@@ -532,7 +553,7 @@
         @media (max-width: 767px) {
             .past-events-grid { grid-template-columns: 1fr; column-gap: 0; }
             .past-events-heading { margin-top: 50px; }
-            #evenements .section-heading { margin-bottom: 35px; }
+            #evenements .section-heading { margin-bottom: 0 !important; }
         }
 
     </style>
