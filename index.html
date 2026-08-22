@@ -1050,6 +1050,16 @@ Copyright &copy;</script><script>document.write(new Date().getFullYear());</scri
     <script src="js/active.js"></script>
 
     <script>
+        // ===== CLOSE MOBILE NAVIGATION AFTER CLICK =====
+        $(document).on('click', '.classynav a[href^=\"#\"]', function () {
+            if (window.innerWidth <= 991) {
+                setTimeout(function () {
+                    var closeBtn = document.querySelector('.classycloseIcon');
+                    if (closeBtn) closeBtn.click();
+                }, 50);
+            }
+        });
+
         // ===== VIDEO TABS =====
         var videoList = [
             { id: '4dPpUeD_2Dw', caption: 'IMERSAO – Live Organic Trance | Anatha Festival 2025' },
